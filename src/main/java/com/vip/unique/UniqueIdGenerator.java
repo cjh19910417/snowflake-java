@@ -75,7 +75,8 @@ public class UniqueIdGenerator {
 
     /**
      * 获取uniqueId(long)
-     * @return
+     *
+     * @return id
      * @throws Exception
      */
     public synchronized long nextId() throws Exception {
@@ -95,7 +96,7 @@ public class UniqueIdGenerator {
         }
 
         this.lastTimestamp = timestamp;
-        return timestamp - this.epoch << this.timestampLeftShift | this.workerId << this.workerIdLeftShift | this.sequence;
+        return timestamp - this.epoch << this.timestampLeftShift | UniqueIdGenerator.workerId << this.workerIdLeftShift | this.sequence;
     }
 
     private static UniqueIdGenerator idGenerator = new UniqueIdGenerator();
@@ -106,7 +107,8 @@ public class UniqueIdGenerator {
 
     /**
      * 获取pid
-     * @return
+     *
+     * @return pid
      */
     private static String getJvmPid() {
         String name = ManagementFactory.getRuntimeMXBean().getName();
